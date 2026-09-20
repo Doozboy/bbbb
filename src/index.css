@@ -485,6 +485,17 @@ video { transform: translateZ(0); }
   user-select: none;
   overflow: hidden;
 }
+/* Testimonial layers must not clip — glyphs and morph-shifted text extend
+   beyond the canvas/viewport bounds. The inline overflow:hidden from
+   HeroDesign.tsx and the exported .page both need !important to override.
+   The parent hero section (overflow-hidden) still clips at the viewport. */
+.hero-design {
+  overflow: visible !important;
+}
+.hero-design .design,
+.hero-design .page {
+  overflow: visible !important;
+}
 .hero-design .design,
 .hero-design .page {
   margin: 0;
@@ -659,14 +670,6 @@ video { transform: translateZ(0); }
   .hero-design.desktop-image .testimonial-group,
   .hero-rig-figure,
   .hero-me2 { transition: none; }
-}
-
-/* Belt-and-braces for the clip above: the export writes `overflow: hidden`
-   inline on .page, so only !important can beat it from a stylesheet.
-   Keep this if you ever re-export the design and forget the JS fix. */
-.hero-design.desktop-image .design,
-.hero-design.desktop-image .page {
-  overflow: visible !important;
 }
 
 /* === TITLE BEHIND PHOTO SPLIT === *
